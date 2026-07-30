@@ -1,12 +1,17 @@
 <template>
-    <div class="container mt-5">
-      <h1>Dashboard</h1>
-      <p>Panel principal del sistema.</p>
-    </div>
-  </template>
-  
-  <script setup>
-  </script>
-  
-  <style scoped>
-  </style>
+  <div>
+    <h2>Dashboard</h2>
+
+    <hr>
+
+    <p>
+      Bienvenido al Sistema de Gestión Comercial de la Cacharrería Mijaid.
+    </p>
+  </div>
+</template>
+
+<script setup>
+</script>
+
+<style scoped>
+</style>
