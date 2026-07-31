@@ -58,3 +58,24 @@ export async function agregarDetalle(detalle) {
   return subtotal;
 
 }
+
+export async function obtenerDetallePedido(id_pedido) {
+
+  const [rows] = await pool.execute(
+    `SELECT
+        dp.id_detalle,
+        p.nombre,
+        dp.cantidad,
+        dp.precio_unitario,
+        dp.subtotal
+     FROM detalle_pedido dp
+     INNER JOIN productos p
+       ON dp.id_producto = p.id_producto
+     WHERE dp.id_pedido = ?
+     ORDER BY dp.id_detalle ASC`,
+    [id_pedido]
+  );
+
+  return rows;
+
+}

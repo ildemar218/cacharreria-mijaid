@@ -11,6 +11,7 @@ import categoriaRoutes from "./routes/categoriaRoutes.js";
 import clienteRoutes from "./routes/clienteRoutes.js";
 import pedidoRoutes from "./routes/pedidoRoutes.js";
 import detallePedidoRoutes from "./routes/detallePedidoRoutes.js";
+import pagoRoutes from "./routes/pagoRoutes.js";
 
 import { verificarToken } from "./middleware/authMiddleware.js";
 
@@ -50,6 +51,8 @@ app.use("/api/clientes", verificarToken, clienteRoutes);
 app.use("/api/pedidos", verificarToken, pedidoRoutes);
 
 app.use("/api/detalle-pedido", verificarToken, detallePedidoRoutes);
+
+app.use("/api/pagos", pagoRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({

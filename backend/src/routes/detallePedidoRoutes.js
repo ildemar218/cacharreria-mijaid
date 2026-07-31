@@ -1,10 +1,13 @@
 import { Router } from "express";
 
 import {
-  registrarDetalle
+  registrarDetalle,
+  listarDetalle
 } from "../controllers/detallePedidoController.js";
 
 const router = Router();
+
+router.get("/:id", listarDetalle);
 
 router.post("/", registrarDetalle);
 

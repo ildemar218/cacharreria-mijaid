@@ -18,7 +18,21 @@ export async function obtenerPedidos() {
   return rows;
 }
 
+export async function obtenerPedidoPorId(id) {
+
+  const [rows] = await pool.execute(
+    `SELECT *
+     FROM pedidos
+     WHERE id_pedido=?`,
+    [id]
+  );
+
+  return rows[0];
+
+}
+
 export async function crearPedido(pedido) {
+
   const { id_cliente } = pedido;
 
   const [resultado] = await pool.execute(
@@ -29,13 +43,29 @@ export async function crearPedido(pedido) {
   );
 
   return resultado.insertId;
+
 }
 
 export async function actualizarTotal(id_pedido, total) {
+
   await pool.execute(
     `UPDATE pedidos
      SET total=?
      WHERE id_pedido=?`,
     [total, id_pedido]
   );
+
+}
+
+export async function marcarPedidoPagado(id) {
+
+  const [resultado] = await pool.execute(
+    `UPDATE pedidos
+     SET estado='Pagado'
+     WHERE id_pedido=?`,
+    [id]
+  );
+
+  return resultado.affectedRows;
+
 }
