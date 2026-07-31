@@ -7,6 +7,8 @@ import ProveedoresView from "../views/proveedores/ProveedoresView.vue";
 import CategoriasView from "../views/categorias/CategoriasView.vue";
 import ClientesView from "../views/clientes/ClientesView.vue";
 import PedidosView from "../views/pedidos/PedidosView.vue";
+import PagosView from "../views/pagos/PagosView.vue";
+import FacturaView from "../views/facturas/FacturaView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -63,6 +65,18 @@ const router = createRouter({
     name: "pedidos",
     component: PedidosView
   },
+
+  {
+    path: "/pagos",
+    name: "pagos",
+    component: PagosView,
+  },
+
+  {
+    path: "/factura/:id",
+    name: "factura",
+    component: FacturaView,
+  }
 
   ],
 });
