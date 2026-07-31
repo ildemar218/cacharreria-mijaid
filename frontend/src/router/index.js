@@ -1,37 +1,85 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
-import MainLayout from '@/layouts/MainLayout.vue'
-
-import LoginView from '@/views/auth/LoginView.vue'
-import DashboardView from '@/views/dashboard/DashboardView.vue'
+import LoginView from "../views/auth/LoginView.vue";
+import DashboardView from "../views/dashboard/DashboardView.vue";
+import ProductosView from "../views/productos/ProductosView.vue";
+import ProveedoresView from "../views/proveedores/ProveedoresView.vue";
+import CategoriasView from "../views/categorias/CategoriasView.vue";
+import ClientesView from "../views/clientes/ClientesView.vue";
+import PedidosView from "../views/pedidos/PedidosView.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
 
   routes: [
     {
-      path: '/',
-      redirect: '/login',
+      path: "/",
+      redirect: "/login",
     },
 
     {
-      path: '/login',
-      name: 'login',
+      path: "/login",
       component: LoginView,
     },
 
     {
-      path: '/',
-      component: MainLayout,
-      children: [
-        {
-          path: 'dashboard',
-          name: 'dashboard',
-          component: DashboardView,
-        },
-      ],
+      path: "/dashboard",
+      component: DashboardView,
+      meta: {
+        requiereAuth: true,
+      },
     },
-  ],
-})
 
-export default router
+    {
+      path: "/productos",
+      component: ProductosView,
+      meta: {
+        requiereAuth: true,
+      },
+    },
+    
+    {
+      path: "/proveedores",
+      component: ProveedoresView,
+      meta: {
+        requiereAuth: true,
+      },
+    },
+
+    {
+      path: "/categorias",
+      name: "categorias",
+      component: CategoriasView
+    },
+
+    {
+      path: "/clientes",
+      name: "clientes",
+      component: ClientesView
+  },
+
+  {
+    path: "/pedidos",
+    name: "pedidos",
+    component: PedidosView
+  },
+
+  ],
+});
+
+router.beforeEach((to, from, next) => {
+
+  const token = localStorage.getItem("token");
+
+  if (to.meta.requiereAuth && !token) {
+
+    next("/login");
+
+    return;
+  }
+
+  next();
+
+});
+
+export default router;
